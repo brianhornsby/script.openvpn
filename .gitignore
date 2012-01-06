@@ -1,28 +1,12 @@
 
 resources/__init__.pyo
 
-resources/lib/__init__.pyo
-
-resources/lib/cache.pyo
-
-resources/lib/tunein.pyo
-
-resources/lib/xbmcdownload.pyo
-
-resources/lib/xbmcsettings.pyo
-
-resources/lib/xbmcutils.pyo
-
-resources/lib/tunein.pyc
-
 resources/__init__.pyc
 
-resources/lib/__init__.pyc
+xbmcsettings.pyc
 
-resources/lib/cache.pyc
+xbmcsettings.pyc
 
-resources/lib/xbmcdownload.pyc
+xbmcsettings.pyo
 
-resources/lib/xbmcsettings.pyc
-
-resources/lib/xbmcutils.pyc
+xbmcsettings.pyo

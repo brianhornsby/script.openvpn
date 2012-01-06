@@ -21,13 +21,14 @@
 
 import xbmc, xbmcgui, xbmcplugin, xbmcaddon
 import os, urllib, urllib2
+from subprocess import Popen, PIPE, STDOUT
 
 import xbmcsettings as settings
 import xbmcutils as utils
 
 # Set some global values.
 __xbmcrevision__ = xbmc.getInfoLabel('System.BuildVersion')
-__addonid__   = 'script.openvpn	'
+__addonid__   = 'script.openvpn'
 __author__    = 'Brian Hornsby'
 
 # Initialise settings.
@@ -42,17 +43,15 @@ __openvpn__ = __settings__.get('openvpn')
 __configdir__ = __settings__.get('configdir')
 
 if ( __name__ == "__main__" ):
-	print xbmcgui.Dialog().browse(1, __settings__.get_string(3000), 'files')
-	from subprocess import Popen, PIPE, STDOUT
-	
-	#cmdline = CreateRTMPDUMPCmd( rtmpdump_path, streamUri, auth, savePath )
-	xbmc.executebuiltin('XBMC.Notification(%s)' % __settings__.get_string(4000))
+	__configfile__ = xbmcgui.Dialog().browse(1, __settings__.get_string(3000), 'files', '', False, False, __configdir__)
+	cmdline = '%s --config %s' % (__openvpn__, __configfile__)
+	print cmdline
+	#xbmc.executebuiltin('XBMC.Notification(%s)' % __settings__.get_string(4000))
 	#p = Popen( cmdline, shell=True, stdin=PIPE, stdout=PIPE, stderr=STDOUT )
 	#x = p.stdout.read()
 	#import time
 	#while p.poll() == None:
 	#	time.sleep(2)
 	#	x = p.stdout.read()
-	
-	xbmc.executebuiltin('XBMC.Notification(%s)' % __settings__.get_string(4000))
+	#xbmc.executebuiltin('XBMC.Notification(%s)' % __settings__.get_string(4000))
 

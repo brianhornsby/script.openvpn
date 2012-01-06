@@ -10,6 +10,6 @@
   <extension point="xbmc.addon.metadata">
     <platform>all</platform>
     <summary lang="en">OpenVPN</summary>
-    <description lang="en">OpenVPN script.</description>
+    <description lang="en">OpenVPN is a robust and highly flexible VPN daemon.</description>
   </extension>
 </addon>
