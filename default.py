@@ -20,8 +20,7 @@
 # */
 
 import xbmc, xbmcgui, xbmcplugin, xbmcaddon
-import os, urllib, urllib2
-from subprocess import Popen, PIPE, STDOUT
+import os, subprocess, urllib, urllib2
 
 import xbmcsettings as settings
 import xbmcutils as utils
@@ -30,6 +29,7 @@ import xbmcutils as utils
 __xbmcrevision__ = xbmc.getInfoLabel('System.BuildVersion')
 __addonid__   = 'script.openvpn'
 __author__    = 'Brian Hornsby'
+__maxcfgs__   = 2
 
 # Initialise settings.
 __settings__ = settings.Settings(__addonid__, sys.argv)
@@ -40,18 +40,32 @@ __version__   = __settings__.get_version()
 
 # Get addon settings values.
 __openvpn__ = __settings__.get('openvpn')
-__configdir__ = __settings__.get('configdir')
 
-if ( __name__ == "__main__" ):
-	__configfile__ = xbmcgui.Dialog().browse(1, __settings__.get_string(3000), 'files', '', False, False, __configdir__)
-	cmdline = '%s --config %s' % (__openvpn__, __configfile__)
-	print cmdline
-	#xbmc.executebuiltin('XBMC.Notification(%s)' % __settings__.get_string(4000))
-	#p = Popen( cmdline, shell=True, stdin=PIPE, stdout=PIPE, stderr=STDOUT )
-	#x = p.stdout.read()
-	#import time
-	#while p.poll() == None:
-	#	time.sleep(2)
-	#	x = p.stdout.read()
-	#xbmc.executebuiltin('XBMC.Notification(%s)' % __settings__.get_string(4000))
+if ( __name__ == '__main__' ):
+	__configs__ = []
+	__configfile__ = ''
+	i = 1
+	while i < (__maxcfgs__ + 1):
+		id = __settings__.get('configid%d' % i)
+		if len(id) > 0:
+			__configs__.append(id)
+		i = i + 1
+	
+	index = xbmcgui.Dialog().select(__settings__.get_string(3000), __configs__)
 
+	i = 1
+	while i < (__maxcfgs__ + 1):
+		id = __settings__.get('configid%d' % i)
+		if len(id) > 0 and id == __configs__[index]:
+			__configfile__ = __settings__.get('configfile%d' % i)
+			break
+		i = i + 1
+
+	if len(__configfile__) == 0 or not os.path.exists(__configfile__):
+		utils.ok(__addonname__, __settings__.get_string(3001), __settings__.get_string(3002))
+		xbmc.log('Configuration file does not exist: %s' % __configfile__, xbmc.LOGERROR)
+
+	cmdline = '%s --cd \'%s\' --config \'%s\'' % (__openvpn__, os.path.dirname(__configfile__) ,__configfile__)
+	proc = subprocess.Popen(cmdline, shell=True, stdout=subprocess.PIPE, stdin=subprocess.PIPE, stderr=subprocess.PIPE,)
+	for line in proc.stdout:
+		print line

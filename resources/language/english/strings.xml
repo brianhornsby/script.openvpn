@@ -1,17 +1,19 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <strings>	
 	<!--Labels-->
-	<string id="1000"></string>
+	<string id="1000">OpenVPN</string>
 	
 	<!--Settings-->
-	<string id="2000">OpenVPN path</string>
-	<string id="2001">Default directory</string>
+	<string id="2000">OpenVPN Path</string>
+	<string id="2002">Debug</string>
+	<string id="2003">On</string>
+	<string id="2004">Off</string>
+	<string id="2005">Config Id</string>
+	<string id="2006">Config File</string>
 	
 	<!--Dialogs-->
-	<string id="3000">Select openvpn config file</string>
-	
-	<!--Notification-->
-	<string id="4000">OpenVPN started</string>
-	<string id="4001">OpenVPN finished</string>
+	<string id="3000">Select OpenVPN Configuration</string>
+	<string id="3001">Configuration file does not exist.</string>
+	<string id="3002">Check xbmc.log for more information.</string>
 	
 </strings>
