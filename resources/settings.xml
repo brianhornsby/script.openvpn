@@ -2,6 +2,8 @@
 <settings>
 	<category label="OpenVPN">
 		<setting id="openvpn" type="file" label="2000" default="/usr/bin/openvpn"/>
+		<setting id="sudo" type="bool" label="2001" default="false"/>
+		<setting id="sudopwd" type="text" option="hidden" label="2007" enable="!eq(-1,)" default=""/>
 	</category>
 	<category label="Configuration">
 		<setting id="configid1" type="text" label="2005" default=""/>
@@ -9,8 +11,11 @@
 		<setting type="sep" />
 		<setting id="configid2" type="text" label="2005" default=""/>
 		<setting id="configfile2" type="file" label="2006" default=""/>
+		<setting type="sep" />
+		<setting id="configid3" type="text" label="2005" default=""/>
+		<setting id="configfile3" type="file" label="2006" default=""/>
 	</category>
 	<category label="Advanced">
-		<setting id="debuglevel" type="enum" label="2002" default="1" lvalues="2003|2004"/>
+		<setting id="debug" type="enum" label="2002" default="1" lvalues="2003|2004"/>
 	</category>
 </settings>
