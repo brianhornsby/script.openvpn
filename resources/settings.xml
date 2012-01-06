@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<settings>
+	<category label="OpenVPN">
+		<setting id="openvpn" type="file" label="2000" default="/usr/bin/openvpn"/>
+		<setting id="configdir" type="folder" label="2001" default=""/>
+	</category>
+	<category label="Advanced">
+	</category>
+</settings>

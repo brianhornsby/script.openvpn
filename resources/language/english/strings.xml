@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<strings>	
+	<!--Labels-->
+	<string id="1000"></string>
+	
+	<!--Settings-->
+	<string id="2000">OpenVPN path</string>
+	<string id="2001">Default directory</string>
+	
+	<!--Dialogs-->
+	<string id="3000">Select openvpn config file</string>
+	
+	<!--Notification-->
+	<string id="4000">OpenVPN started</string>
+	<string id="4001">OpenVPN finished</string>
+	
+</strings>
