@@ -73,7 +73,7 @@ if ( __name__ == '__main__' ):
 
 	__configs__.append(__settings__.get_string(1000))
 	
-	index = xbmcgui.Dialog().select(__settings__.get_string(3000), __configs__)
+	index = utils.select(__settings__.get_string(3000), __configs__)
 	if index != -1:
 		i = 1
 		while i < (__maxcfgs__ + 1):

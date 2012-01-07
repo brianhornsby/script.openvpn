@@ -63,6 +63,10 @@ def ok(heading, line1, line2='', line3=''):
 	dialog = xbmcgui.Dialog()
 	dialog.ok(heading, line1, line2, line3)
 
+def select(heading, list):
+	dialog = xbmcgui.Dialog()
+	return dialog.select(heading, list)
+
 def yesno(heading, line1, line2='', line3=''):
 	dialog = xbmcgui.Dialog()
 	return dialog.yesno(heading, line1, line2, line3) == 1
