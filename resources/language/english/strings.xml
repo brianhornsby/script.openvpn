@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <strings>	
 	<!--Labels-->
-	<string id="1000">Kill OpenVPN</string>
+	<string id="1000">Stop OpenVPN</string>
 	
 	<!--Settings-->
 	<string id="2000">OpenVPN</string>
@@ -12,13 +12,18 @@
 	<string id="2005">Config Id</string>
 	<string id="2006">Config File</string>
 	<string id="2007">Sudo Password</string>
+	<string id="2008">Sudo Prompt</string>
+	<string id="2009">Time Limit</string>
 	
 	<!--Dialogs-->
 	<string id="3000">Select OpenVPN Configuration</string>
 	<string id="3001">Configuration file does not exist.</string>
 	<string id="3002">Check xbmc.log for more information.</string>
+	<string id="3003">Enter sudo password.</string>
 	
 	<!--Notifcations-->
-	<string id="4000">Finished</string>
+	<string id="4000">IP: %s; Country: %s</string>
+	<string id="4001">Starting OpenVPN</string>
+	<string id="4002">Stopping OpenVPN</string>
 	
 </strings>

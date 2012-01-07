@@ -20,7 +20,8 @@
 # */
 
 import xbmc, xbmcgui, xbmcplugin, xbmcaddon
-import os, subprocess, urllib, urllib2
+import os, subprocess, time, urllib, urllib2
+from BeautifulSoup import BeautifulSoup
 
 import xbmcsettings as settings
 import xbmcutils as utils
@@ -41,7 +42,24 @@ __version__   = __settings__.get_version()
 # Get addon settings values.
 __openvpn__ = __settings__.get('openvpn')
 __sudo__ = __settings__.get('sudo') == 'true'
+__sudoprompt__ = __settings__.get('sudoprompt') == 'true'
 __sudopwd__ = __settings__.get('sudopwd')
+__timelimit__ = int(__settings__.get('timelimit'))
+
+def log_debug(msg):
+	if __settings__.get('debug') == 0:
+		xbmc.log(msg, xbmc.LOGDEBUG)
+
+def get_geolocation():
+	try:
+		url = 'http://ip2country.sourceforge.net/ip2c.php?format=XML'
+		req = urllib2.Request(url)
+		f = urllib2.urlopen(req)
+		result = f.read()
+		f.close()
+		return BeautifulSoup(result)
+	except:
+		return None
 
 if ( __name__ == '__main__' ):
 	__configs__ = []
@@ -56,36 +74,51 @@ if ( __name__ == '__main__' ):
 	__configs__.append(__settings__.get_string(1000))
 	
 	index = xbmcgui.Dialog().select(__settings__.get_string(3000), __configs__)
-
-	i = 1
-	while i < (__maxcfgs__ + 1):
-		id = __settings__.get('configid%d' % i)
-		if len(id) > 0 and id == __configs__[index]:
-			__configfile__ = __settings__.get('configfile%d' % i)
-			break
-		i = i + 1
-
-	if index == len(__configs__) - 1:
-		command = 'Notification(%s, %s)' % (__addonname__, 'Kill VPN')
-		xbmc.executebuiltin(command)
-	else:
-		if len(__configfile__) == 0 or not os.path.exists(__configfile__):
-			utils.ok(__addonname__, __settings__.get_string(3001), __settings__.get_string(3002))
-			xbmc.log('Configuration file does not exist: %s' % __configfile__, xbmc.LOGERROR)
-		else:
-			prefix = ''
-			if __sudo__:
-				if len(__sudopwd__) > 0:
-					prefix = 'echo \'%s\' | ' % __sudopwd__
-				prefix = '%ssudo -S ' % prefix
-			cmdline = '%s\'%s\' --cd \'%s\' --config \'%s\'' % (prefix, __openvpn__, os.path.dirname(__configfile__) ,__configfile__)
-			if __settings__.get('debug') == 0:
-				xbmc.log(cmdline, xbmc.LOGDEBUG)
-			proc = subprocess.Popen(cmdline, shell=True, stdout=subprocess.PIPE, stdin=subprocess.PIPE, stderr=subprocess.PIPE)
-			for line in proc.stdout:
-				if __settings__.get('debug') == 0:
-					xbmc.log(line, xbmc.LOGDEBUG)
+	if index != -1:
+		i = 1
+		while i < (__maxcfgs__ + 1):
+			id = __settings__.get('configid%d' % i)
+			if len(id) > 0 and id == __configs__[index]:
+				__configfile__ = __settings__.get('configfile%d' % i)
+				break
+			i = i + 1
 	
-			command = 'Notification(%s, %s)' % (__addonname__, (__settings__.get_string(4000)))
+		prefix = ''
+		if __sudo__:
+			if __sudoprompt__:
+				__sudopwd__ = utils.keyboard(heading=__settings__.get_string(3003), hidden=True)
+				prefix = 'echo \'%s\' | ' % __sudopwd__
+			elif len(__sudopwd__) > 0:
+				prefix = 'echo \'%s\' | ' % __sudopwd__
+			prefix = '%ssudo -S ' % prefix
+
+		if index == len(__configs__) - 1:
+			command = 'Notification(%s, %s)' % (__addonname__, __settings__.get_string(4002))
 			xbmc.executebuiltin(command)
-	
+		
+			cmdline = '%skillall -TERM %s' % (prefix, os.path.basename(__openvpn__))
+			log_debug(cmdline)
+			proc = subprocess.Popen(cmdline, shell=True, stdout=subprocess.PIPE, stdin=subprocess.PIPE, stderr=subprocess.PIPE)
+		
+			time.sleep(__timelimit__)
+			geolocation = get_geolocation()
+			if geolocation != None:
+				command = 'Notification(%s, %s)' % (__addonname__, __settings__.get_string(4000) % (geolocation.lookup.ip.string, geolocation.lookup.country_name.string))
+				xbmc.executebuiltin(command)
+		else:
+			if len(__configfile__) == 0 or not os.path.exists(__configfile__):
+				utils.ok(__addonname__, __settings__.get_string(3001), __settings__.get_string(3002))
+				xbmc.log('Configuration file does not exist: %s' % __configfile__, xbmc.LOGERROR)
+			else:
+				command = 'Notification(%s, %s)' % (__addonname__, __settings__.get_string(4001))
+				xbmc.executebuiltin(command)
+			
+				cmdline = '%s\'%s\' --cd \'%s\' --config \'%s\' &' % (prefix, __openvpn__, os.path.dirname(__configfile__) ,__configfile__)
+				log_debug(cmdline)
+				proc = subprocess.Popen(cmdline, shell=True, stdout=subprocess.PIPE, stdin=subprocess.PIPE, stderr=subprocess.PIPE)
+			
+				time.sleep(__timelimit__)
+				geolocation = get_geolocation()
+				if geolocation != None:
+					command = 'Notification(%s, %s)' % (__addonname__, __settings__.get_string(4000) % (geolocation.lookup.ip.string, geolocation.lookup.country_name.string))
+					xbmc.executebuiltin(command)

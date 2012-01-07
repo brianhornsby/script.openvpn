@@ -3,6 +3,7 @@
 	<category label="OpenVPN">
 		<setting id="openvpn" type="file" label="2000" default="/usr/bin/openvpn"/>
 		<setting id="sudo" type="bool" label="2001" default="false"/>
+		<setting id="sudoprompt" type="bool" label="2008" default="true"/>
 		<setting id="sudopwd" type="text" option="hidden" label="2007" enable="!eq(-1,)" default=""/>
 	</category>
 	<category label="Configuration">
@@ -17,5 +18,6 @@
 	</category>
 	<category label="Advanced">
 		<setting id="debug" type="enum" label="2002" default="1" lvalues="2003|2004"/>
+		<setting id="timelimit" type="number" label="2009" default="15"/>
 	</category>
 </settings>
