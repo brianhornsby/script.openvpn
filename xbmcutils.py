@@ -59,6 +59,10 @@ def keyboard(default='', heading='', hidden=False):
 		return kb.getText()
 	return None
 
+def notification(header, message):
+	command = 'Notification(%s, %s)' % (header, message)
+	xbmc.executebuiltin(command)
+
 def ok(heading, line1, line2='', line3=''):
 	dialog = xbmcgui.Dialog()
 	dialog.ok(heading, line1, line2, line3)

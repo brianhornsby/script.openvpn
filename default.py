@@ -41,9 +41,6 @@ __version__   = __settings__.get_version()
 
 # Get addon settings values.
 __openvpn__ = __settings__.get('openvpn')
-__sudo__ = __settings__.get('sudo') == 'true'
-__sudoprompt__ = __settings__.get('sudoprompt') == 'true'
-__sudopwd__ = __settings__.get('sudopwd')
 __timelimit__ = int(__settings__.get('timelimit'))
 
 def log_debug(msg):
@@ -61,64 +58,76 @@ def get_geolocation():
 	except:
 		return None
 
-if ( __name__ == '__main__' ):
-	__configs__ = []
-	__configfile__ = ''
+def get_configs():
+	configs = []
 	i = 1
 	while i < (__maxcfgs__ + 1):
 		id = __settings__.get('configid%d' % i)
 		if len(id) > 0:
-			__configs__.append(id)
+			configs.append(id)
 		i = i + 1
+	configs.append(__settings__.get_string(1000))
+	return configs
 
-	__configs__.append(__settings__.get_string(1000))
-	
-	index = utils.select(__settings__.get_string(3000), __configs__)
+def get_configfile(configs, index):
+	configfile = ''
+	i = 1
+	while i < (__maxcfgs__ + 1):
+		id = __settings__.get('configid%d' % i)
+		if len(id) > 0 and id == configs[index]:
+			configfile = __settings__.get('configfile%d' % i)
+			break
+		i = i + 1
+	return configfile
+
+def sudo_prefix():
+	prefix = ''
+	if __settings__.get('sudo') == 'true':
+		sudopwd = __settings__.get('sudopwd')
+		if __settings__.get('sudoprompt') == 'true':
+			sudopwd = utils.keyboard(heading=__settings__.get_string(3003), hidden=True)
+		if sudopwd != None and len(sudopwd) > 0:
+			prefix = 'echo \'%s\' | ' % sudopwd
+			return '%ssudo -S ' % prefix
+	return prefix
+
+def start_openvpn(config):
+	utils.notification(__addonname__, __settings__.get_string(4001))
+			
+	prefix = sudo_prefix()
+	cmdline = '%s\'%s\' --cd \'%s\' --config \'%s\' &' % (prefix, __openvpn__, os.path.dirname(config) ,config)
+	log_debug(cmdline)
+	proc = subprocess.Popen(cmdline, shell=True, stdout=subprocess.PIPE, stdin=subprocess.PIPE, stderr=subprocess.PIPE)
+			
+	time.sleep(__timelimit__)
+	geolocation = get_geolocation()
+	if geolocation != None:
+		utils.notification(__addonname__, __settings__.get_string(4000) % (geolocation.lookup.ip.string, geolocation.lookup.country_name.string))
+
+def stop_openvpn():
+	utils.notification(__addonname__, __settings__.get_string(4002))
+			
+	prefix = sudo_prefix()
+	cmdline = '%skillall -TERM %s' % (prefix, os.path.basename(__openvpn__))
+	log_debug(cmdline)
+	proc = subprocess.Popen(cmdline, shell=True, stdout=subprocess.PIPE, stdin=subprocess.PIPE, stderr=subprocess.PIPE)
+			
+	time.sleep(__timelimit__)
+	geolocation = get_geolocation()
+	if geolocation != None:
+		utils.notification(__addonname__, __settings__.get_string(4000) % (geolocation.lookup.ip.string, geolocation.lookup.country_name.string))
+
+if ( __name__ == '__main__' ):
+	configs = get_configs()
+	index = utils.select(__settings__.get_string(3000), configs)
 	if index != -1:
-		i = 1
-		while i < (__maxcfgs__ + 1):
-			id = __settings__.get('configid%d' % i)
-			if len(id) > 0 and id == __configs__[index]:
-				__configfile__ = __settings__.get('configfile%d' % i)
-				break
-			i = i + 1
-	
-		prefix = ''
-		if __sudo__:
-			if __sudoprompt__:
-				__sudopwd__ = utils.keyboard(heading=__settings__.get_string(3003), hidden=True)
-				prefix = 'echo \'%s\' | ' % __sudopwd__
-			elif len(__sudopwd__) > 0:
-				prefix = 'echo \'%s\' | ' % __sudopwd__
-			prefix = '%ssudo -S ' % prefix
-
-		if index == len(__configs__) - 1:
-			command = 'Notification(%s, %s)' % (__addonname__, __settings__.get_string(4002))
-			xbmc.executebuiltin(command)
-		
-			cmdline = '%skillall -TERM %s' % (prefix, os.path.basename(__openvpn__))
-			log_debug(cmdline)
-			proc = subprocess.Popen(cmdline, shell=True, stdout=subprocess.PIPE, stdin=subprocess.PIPE, stderr=subprocess.PIPE)
-		
-			time.sleep(__timelimit__)
-			geolocation = get_geolocation()
-			if geolocation != None:
-				command = 'Notification(%s, %s)' % (__addonname__, __settings__.get_string(4000) % (geolocation.lookup.ip.string, geolocation.lookup.country_name.string))
-				xbmc.executebuiltin(command)
+		configfile = get_configfile(configs, index)
+		if index == len(configs) - 1:
+			stop_openvpn()
 		else:
-			if len(__configfile__) == 0 or not os.path.exists(__configfile__):
+			if len(configfile) == 0 or not os.path.exists(configfile):
 				utils.ok(__addonname__, __settings__.get_string(3001), __settings__.get_string(3002))
-				xbmc.log('Configuration file does not exist: %s' % __configfile__, xbmc.LOGERROR)
+				xbmc.log('Configuration file does not exist: %s' % configfile, xbmc.LOGERROR)
 			else:
-				command = 'Notification(%s, %s)' % (__addonname__, __settings__.get_string(4001))
-				xbmc.executebuiltin(command)
-			
-				cmdline = '%s\'%s\' --cd \'%s\' --config \'%s\' &' % (prefix, __openvpn__, os.path.dirname(__configfile__) ,__configfile__)
-				log_debug(cmdline)
-				proc = subprocess.Popen(cmdline, shell=True, stdout=subprocess.PIPE, stdin=subprocess.PIPE, stderr=subprocess.PIPE)
-			
-				time.sleep(__timelimit__)
-				geolocation = get_geolocation()
-				if geolocation != None:
-					command = 'Notification(%s, %s)' % (__addonname__, __settings__.get_string(4000) % (geolocation.lookup.ip.string, geolocation.lookup.country_name.string))
-					xbmc.executebuiltin(command)
+				start_openvpn(configfile)
+
