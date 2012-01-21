@@ -9,15 +9,18 @@
 	<category label="Configuration">
 		<setting id="configid1" type="text" label="2005" default=""/>
 		<setting id="configfile1" type="file" label="2006" default=""/>
+		<setting id="configdelay1" type="number" label="2009" default="30"/>
 		<setting type="sep" />
 		<setting id="configid2" type="text" label="2005" default=""/>
 		<setting id="configfile2" type="file" label="2006" default=""/>
+		<setting id="configdelay2" type="number" label="2009" default="30"/>
 		<setting type="sep" />
 		<setting id="configid3" type="text" label="2005" default=""/>
 		<setting id="configfile3" type="file" label="2006" default=""/>
+		<setting id="configdelay3" type="number" label="2009" default="30"/>
 	</category>
 	<category label="Advanced">
 		<setting id="debug" type="enum" label="2002" default="1" lvalues="2003|2004"/>
-		<setting id="timelimit" type="number" label="2009" default="15"/>
+		<setting id="timelimit" type="number" label="2009" default="5"/>
 	</category>
 </settings>

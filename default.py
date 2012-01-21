@@ -70,15 +70,17 @@ def get_configs():
 	return configs
 
 def get_configfile(configs, index):
-	configfile = ''
+	config = {}
 	i = 1
 	while i < (__maxcfgs__ + 1):
 		id = __settings__.get('configid%d' % i)
 		if len(id) > 0 and id == configs[index]:
-			configfile = __settings__.get('configfile%d' % i)
+			config['file'] = __settings__.get('configfile%d' % i)
+			config['id'] = id
+			config['delay'] = __settings__.get('configdelay%d' % i)
 			break
 		i = i + 1
-	return configfile
+	return config
 
 def sudo_prefix():
 	prefix = ''
@@ -95,11 +97,11 @@ def start_openvpn(config):
 	utils.notification(__addonname__, __settings__.get_string(4001))
 			
 	prefix = sudo_prefix()
-	cmdline = '%s\'%s\' --cd \'%s\' --config \'%s\' &' % (prefix, __openvpn__, os.path.dirname(config) ,config)
+	cmdline = '%s\'%s\' --cd \'%s\' --config \'%s\' &' % (prefix, __openvpn__, os.path.dirname(config['file']) ,config['file'])
 	log_debug(cmdline)
 	proc = subprocess.Popen(cmdline, shell=True, stdout=subprocess.PIPE, stdin=subprocess.PIPE, stderr=subprocess.PIPE)
 			
-	time.sleep(__timelimit__)
+	time.sleep(int(config['delay']))
 	geolocation = get_geolocation()
 	if geolocation != None:
 		utils.notification(__addonname__, __settings__.get_string(4000) % (geolocation.lookup.ip.string, geolocation.lookup.country_name.string))
@@ -121,13 +123,14 @@ if ( __name__ == '__main__' ):
 	configs = get_configs()
 	index = utils.select(__settings__.get_string(3000), configs)
 	if index != -1:
-		configfile = get_configfile(configs, index)
+		config = get_configfile(configs, index)
 		if index == len(configs) - 1:
 			stop_openvpn()
 		else:
-			if len(configfile) == 0 or not os.path.exists(configfile):
+			if 'file' in config and len(config['file']) == 0 or not os.path.exists(config['file']):
 				utils.ok(__addonname__, __settings__.get_string(3001), __settings__.get_string(3002))
-				xbmc.log('Configuration file does not exist: %s' % configfile, xbmc.LOGERROR)
+				xbmc.log('Configuration file does not exist: %s' % config['file'], xbmc.LOGERROR)
 			else:
-				start_openvpn(configfile)
+				stop_openvpn()
+				start_openvpn(config)
 
