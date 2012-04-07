@@ -1,25 +1,35 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <strings>	
 	<!--Labels-->
-	<string id="1000">Stop OpenVPN</string>
+	<string id="1000">Kill OpenVPN Connection</string>
 	
 	<!--Settings-->
 	<string id="2000">OpenVPN</string>
 	<string id="2001">Sudo</string>
-	<string id="2002">Debug</string>
-	<string id="2003">On</string>
-	<string id="2004">Off</string>
-	<string id="2005">Config Id</string>
-	<string id="2006">Config File</string>
-	<string id="2007">Sudo Password</string>
-	<string id="2008">Sudo Prompt</string>
-	<string id="2009">Time Limit</string>
+	<string id="2002">Sudo Prompt</string>
+	<string id="2003">Sudo Password</string>
+	<string id="2100">Root Certificate</string>
+	<string id="2101">Certificate</string>
+	<string id="2102">Private Key</string>
+	<string id="2103">Connections</string>
+	<string id="2200">Default Port</string>
+	<string id="2201">Default Proto</string>
+	<string id="2202">UDP</string>
+	<string id="2203">TCP</string>
+	<string id="2204">Default Cipher</string>
+	<string id="2205">Default Start Delay</string>
+	<string id="2206">Default Stop Delay</string>
+	<string id="2207">Extra Options</string>
+	<string id="2208">Debug</string>
+	<string id="2209">On</string>
+	<string id="2210">Off</string>
 	
 	<!--Dialogs-->
 	<string id="3000">Select OpenVPN Configuration</string>
 	<string id="3001">Configuration file does not exist.</string>
 	<string id="3002">Check xbmc.log for more information.</string>
 	<string id="3003">Enter sudo password.</string>
+	<string id="3004">Root certifcate, certificate and private key must be set.</string>
 	
 	<!--Notifcations-->
 	<string id="4000">IP: %s; Country: %s</string>

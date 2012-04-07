@@ -23,14 +23,13 @@ import xbmc, xbmcgui, xbmcplugin, xbmcaddon
 import os, subprocess, time, urllib, urllib2
 from BeautifulSoup import BeautifulSoup
 
-import xbmcsettings as settings
-import xbmcutils as utils
+import resources.lib.xbmcsettings as settings
+import resources.lib.xbmcutils as utils
 
 # Set some global values.
 __xbmcrevision__ = xbmc.getInfoLabel('System.BuildVersion')
 __addonid__   = 'script.openvpn'
 __author__    = 'Brian Hornsby'
-__maxcfgs__   = 3
 
 # Initialise settings.
 __settings__ = settings.Settings(__addonid__, sys.argv)
@@ -40,12 +39,56 @@ __addonname__ = __settings__.get_name()
 __version__   = __settings__.get_version()
 
 # Get addon settings values.
-__openvpn__ = __settings__.get('openvpn')
-__timelimit__ = int(__settings__.get('timelimit'))
+__openvpn__			  = __settings__.get('openvpn')
+__ca__				  = __settings__.get('ca')
+__cert__			  = __settings__.get('cert')
+__key__				  = __settings__.get('key')
+__connections__		  = __settings__.get('connections')
+__defaultport__		  = int(__settings__.get('defaultport'))
+if __settings__.get('defaultproto') == 0:
+	__defaultproto__  = 'UDP'
+else:
+	__defaultproto__  = 'TCP'
+__defaultcipher__	  = __settings__.get('defaultcipher')
+__defaultstartdelay__ = int(__settings__.get('defaultstartdelay'))
+__defaultstopdelay__  = int(__settings__.get('defaultstopdelay'))
+__options__           = __settings__.get('options')
 
 def log_debug(msg):
 	if __settings__.get('debug') == 0:
 		xbmc.log(msg, xbmc.LOGDEBUG)
+
+def read_connections():
+	f = open(__connections__, 'r')
+	connections = BeautifulSoup(f.read())
+	f.close()
+	return connections
+
+def write_configuration(id, host, port, proto, cipher):
+	file = __settings__.get_datapath('config.conf')
+	f = open(file, 'w')
+	f.write('# OpenVPN configuration file: %s\n' % id)
+	f.write('remote %s %d %s\n' % (host, port, proto.lower()))
+	f.write('pull\n')
+	f.write('tls-client\n')
+	f.write('ns-cert-type server\n')
+	f.write('persist-key\n')
+	f.write('ca \"%s\"\n' % __ca__)
+	f.write('redirect-gateway def1\n')
+	f.write('dev tun\n')
+	f.write('persist-tun\n')
+	f.write('cert \"%s\"\n' % __cert__)
+	f.write('comp-lzo\n')
+	f.write('nobind\n')
+	f.write('key \"%s\"\n' % __key__)
+	f.write('tun-mtu 1450\n')
+	f.write('fast-io\n')
+	f.write('cipher %s\n' % cipher.lower())
+	f.write('mssfix 1450\n')
+	f.write('resolv-retry infinite\n')
+	f.write('mute 20\n')
+	f.close()
+	return file
 
 def get_geolocation():
 	try:
@@ -58,29 +101,26 @@ def get_geolocation():
 	except:
 		return None
 
-def get_configs():
-	configs = []
-	i = 1
-	while i < (__maxcfgs__ + 1):
-		id = __settings__.get('configid%d' % i)
-		if len(id) > 0:
-			configs.append(id)
-		i = i + 1
-	configs.append(__settings__.get_string(1000))
-	return configs
+def get_vpns():
+	vpns = []
+	for vpn in read_connections().vpns.findAll('vpn'):
+		vpns.append(vpn['id'])
+	vpns.sort()
+	vpns.append(__settings__.get_string(1000))
+	return vpns
 
-def get_configfile(configs, index):
-	config = {}
-	i = 1
-	while i < (__maxcfgs__ + 1):
-		id = __settings__.get('configid%d' % i)
-		if len(id) > 0 and id == configs[index]:
-			config['file'] = __settings__.get('configfile%d' % i)
-			config['id'] = id
-			config['delay'] = __settings__.get('configdelay%d' % i)
-			break
-		i = i + 1
-	return config
+def create_configuration(vpns, index):
+	configuration = {}
+	id = vpns[index]
+	
+	for vpn in read_connections().vpns.findAll('vpn'):
+		if vpn['id'] == id:
+			port = int(vpn.get('port', __defaultport__))
+			proto = vpn.get('proto', __defaultproto__)
+			cipher = vpn.get('cipher', __defaultcipher__)
+			configuration['delay'] = int(vpn.get('delay', __defaultstartdelay__))
+			configuration['file'] = write_configuration(id, vpn['host'], port, proto, cipher)
+	return configuration
 
 def sudo_prefix():
 	prefix = ''
@@ -97,7 +137,7 @@ def start_openvpn(config):
 	utils.notification(__addonname__, __settings__.get_string(4001))
 			
 	prefix = sudo_prefix()
-	cmdline = '%s\'%s\' --cd \'%s\' --config \'%s\' &' % (prefix, __openvpn__, os.path.dirname(config['file']) ,config['file'])
+	cmdline = '%s\'%s\' --cd \'%s\' --config \'%s\' %s --daemon' % (prefix, __openvpn__, os.path.dirname(config['file']), os.path.basename(config['file']), __options__)
 	log_debug(cmdline)
 	proc = subprocess.Popen(cmdline, shell=True, stdout=subprocess.PIPE, stdin=subprocess.PIPE, stderr=subprocess.PIPE)
 			
@@ -114,19 +154,19 @@ def stop_openvpn():
 	log_debug(cmdline)
 	proc = subprocess.Popen(cmdline, shell=True, stdout=subprocess.PIPE, stdin=subprocess.PIPE, stderr=subprocess.PIPE)
 			
-	time.sleep(__timelimit__)
+	time.sleep(__defaultstopdelay__)
 	geolocation = get_geolocation()
 	if geolocation != None:
 		utils.notification(__addonname__, __settings__.get_string(4000) % (geolocation.lookup.ip.string, geolocation.lookup.country_name.string))
 
 if ( __name__ == '__main__' ):
-	configs = get_configs()
-	index = utils.select(__settings__.get_string(3000), configs)
+	vpns = get_vpns()
+	index = utils.select(__settings__.get_string(3000), vpns)
 	if index != -1:
-		config = get_configfile(configs, index)
-		if index == len(configs) - 1:
+		if index == len(vpns) - 1:
 			stop_openvpn()
 		else:
+			config = create_configuration(vpns, index)
 			if 'file' in config and len(config['file']) == 0 or not os.path.exists(config['file']):
 				utils.ok(__addonname__, __settings__.get_string(3001), __settings__.get_string(3002))
 				xbmc.log('Configuration file does not exist: %s' % config['file'], xbmc.LOGERROR)
