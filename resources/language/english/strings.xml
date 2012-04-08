@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <strings>	
 	<!--Labels-->
-	<string id="1000">Kill OpenVPN Connection</string>
+	<string id="1000">Kill OpenVPN Connection (Current: %s)</string>
 	
 	<!--Settings-->
 	<string id="2000">OpenVPN</string>

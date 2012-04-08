@@ -112,7 +112,12 @@ def get_vpns():
 	for vpn in read_connections().vpns.findAll('vpn'):
 		vpns.append(vpn['id'])
 	vpns.sort()
-	vpns.append(__settings__.get_string(1000))
+	
+	country = ''
+	geolocation = get_geolocation()
+	if geolocation != None:
+		country = geolocation.lookup.country_name.string
+	vpns.append(__settings__.get_string(1000) % country)
 	return vpns
 
 def create_configuration(vpns, index):
