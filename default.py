@@ -43,6 +43,7 @@ __openvpn__			  = __settings__.get('openvpn')
 __ca__				  = __settings__.get('ca')
 __cert__			  = __settings__.get('cert')
 __key__				  = __settings__.get('key')
+__ta__				  = __settings__.get('ta')
 __connections__		  = __settings__.get('connections')
 __defaultport__		  = int(__settings__.get('defaultport'))
 if __settings__.get('defaultproto') == 0:
@@ -65,6 +66,9 @@ def read_connections():
 	return connections
 
 def write_configuration(id, host, port, proto, cipher):
+	if proto.lower() == 'tcp':
+		proto = 'tcp-client'
+	
 	file = __settings__.get_datapath('config.conf')
 	f = open(file, 'w')
 	f.write('# OpenVPN configuration file: %s\n' % id)
@@ -72,21 +76,23 @@ def write_configuration(id, host, port, proto, cipher):
 	f.write('pull\n')
 	f.write('tls-client\n')
 	f.write('ns-cert-type server\n')
+	if proto == 'tcp-client':
+		f.write('tls-auth \"%s\" 1\n' % __ta__)
 	f.write('persist-key\n')
 	f.write('ca \"%s\"\n' % __ca__)
-	f.write('redirect-gateway def1\n')
-	f.write('dev tun\n')
+	f.write('nobind\n')
 	f.write('persist-tun\n')
 	f.write('cert \"%s\"\n' % __cert__)
 	f.write('comp-lzo\n')
-	f.write('nobind\n')
+	f.write('dev tun\n')
 	f.write('key \"%s\"\n' % __key__)
-	f.write('tun-mtu 1450\n')
+	f.write('resolv-retry infinite\n')
+	f.write('mssfix 1450\n')
+	f.write('mute 20\n')
 	f.write('fast-io\n')
 	f.write('cipher %s\n' % cipher.lower())
-	f.write('mssfix 1450\n')
-	f.write('resolv-retry infinite\n')
-	f.write('mute 20\n')
+	f.write('tun-mtu 1450\n')
+	f.write('redirect-gateway def1\n')
 	f.close()
 	return file
 

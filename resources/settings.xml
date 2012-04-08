@@ -10,7 +10,8 @@
 		<setting id="ca" type="file" label="2100" default="ca.crt"/>
 		<setting id="cert" type="file" label="2101" default="cert.crt"/>
 		<setting id="key" type="file" label="2102" default="key.key"/>
-		<setting id="connections" type="file" label="2103" default=""/>
+		<setting id="ta" type="file" label="2103" default="ta.key"/>
+		<setting id="connections" type="file" label="2104" default="connections.xml"/>
 	</category>
 	<category label="Advanced">
 		<setting id="defaultport" type="number" label="2200" default="1194"/>

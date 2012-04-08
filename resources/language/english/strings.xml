@@ -11,7 +11,8 @@
 	<string id="2100">Root Certificate</string>
 	<string id="2101">Certificate</string>
 	<string id="2102">Private Key</string>
-	<string id="2103">Connections</string>
+	<string id="2103">TLS Key</string>
+	<string id="2104">Connections</string>
 	<string id="2200">Default Port</string>
 	<string id="2201">Default Proto</string>
 	<string id="2202">UDP</string>
