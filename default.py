@@ -115,7 +115,7 @@ def get_vpns():
 	
 	country = ''
 	geolocation = get_geolocation()
-	if geolocation != None:
+	if geolocation and geolocation.lookup:
 		country = geolocation.lookup.country_name.string
 	vpns.append(__settings__.get_string(1000) % country)
 	return vpns
