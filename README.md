@@ -41,6 +41,7 @@ You need to add one vpn element for each vpn connection.
 - host: The hostname for the openvpn connection. Mandatory.
 - port: The port that should be used for openvpn connection. Mandatory.
 - proto: tcp or udp. Mandatory.
+- delay: Number of seconds to wait before showing notification, after connection. Not Mandatory.
 
 Third-party Libraries
 ---------------------
