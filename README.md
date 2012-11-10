@@ -9,7 +9,7 @@ See [wiki][3] for more information on using add-on.
 
 Prerequisites
 -----
-- Ubuntu 11.10 (Natty Narwhal) or Mac OS X (Mountain Lion)
+- Ubuntu 11.10 (Oneiric Ocelot) or Mac OS X (Mountain Lion)
 - XBMC 11.0 (Eden)
 - OpenVPN 2.2.0 or greater
 
