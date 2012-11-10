@@ -91,7 +91,7 @@ def write_configuration(id, host, port, proto, cipher):
 	f.write('mute 20\n')
 	f.write('fast-io\n')
 	f.write('cipher %s\n' % cipher.lower())
-	f.write('tun-mtu 1450\n')
+	f.write('tun-mtu 1500\n')
 	f.write('redirect-gateway def1\n')
 	f.close()
 	return file
