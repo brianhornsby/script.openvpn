@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <addon id="script.openvpn" name="OpenVPN" version="1.0.0" provider-name="Brian Hornsby">
-  <requires>
-    <import addon="xbmc.python" version="1.0"/>
-	<import addon="script.module.beautifulsoup" version="3.0.8"/>
-  </requires>
-  <extension point="xbmc.python.script" library="default.py"/>
-  <extension point="xbmc.addon.metadata">
-    <platform>all</platform>
-    <summary lang="en">OpenVPN plugin for XBMC.</summary>
-    <description lang="en">OpenVPN is a robust and highly flexible VPN daemon.</description>
+	<requires>
+		<import addon="xbmc.python" version="1.0"/>
+		<import addon="script.module.beautifulsoup" version="3.0.8"/>
+	</requires>
+	<extension point="xbmc.python.script" library="default.py"/>
+	<extension point="xbmc.addon.metadata">
+		<platform>all</platform>
+		<summary lang="en">OpenVPN addon for XBMC.</summary>
+		<description lang="en">This addon allows you to set up a number of OpenVPN configurations, which you can then run from XBMC.
+For more information on setting up this addon see https://github.com/brianhornsby/script.openvpn/wiki</description>
   </extension>
 </addon>

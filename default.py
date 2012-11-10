@@ -1,8 +1,8 @@
 #/*
 # *
-# * OpenVPN: OpenVPN add-on for XBMC.
+# * OpenVPN add-on for XBMC.
 # *
-# * Copyright (C) 2011 Brian Hornsby
+# * Copyright (C) 2012 Brian Hornsby
 # *
 # * This program is free software: you can redistribute it and/or modify
 # * it under the terms of the GNU General Public License as published by

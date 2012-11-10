@@ -3,14 +3,15 @@ OpenVPN Add-on for XBMC
 
 About
 -----
-This projects goal is to provide an interface to [OpenVPN][1] in XBMC. 
+This addon allows a user to run a [OpenVPN][1] configuration in XBMC. 
 
 See [wiki][3] for more information on using add-on.
 
 Prerequisites
 -----
-- Ubuntu 11.04 (Natty Narwhal) or Mac OS X (Lion)
-- XBMC 10.1 (Dharma) or XBMC 11.0 Beta 1 (Eden)
+- Ubuntu 11.10 (Natty Narwhal) or Mac OS X (Mountain Lion)
+- XBMC 11.0 (Eden)
+- OpenVPN 2.2.0 or greater
 
 Installation Instructions
 -----
@@ -51,7 +52,7 @@ License
 -------
 This software is released under the [GPL 3.0 license] [2].
 
-[1]: http://openvpn
+[1]: http://openvpn.net
 [2]: http://www.gnu.org/licenses/gpl-3.0.html
 [3]: https://github.com/brianhornsby/openvpn-xbmc/wiki
 [4]: https://github.com/brianhornsby/openvpn-xbmc/downloads
