@@ -1,4 +1,4 @@
-*** 1.0.4 ***
+*** 1.0.5 ***
 Added images to notification.
 Added ability to call vpn connection directly by specifying vpn index as argument.
 
