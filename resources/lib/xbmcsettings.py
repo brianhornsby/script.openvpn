@@ -44,6 +44,9 @@ class Settings:
 	def get_argv(self, idx):
 		return self.__argv__[idx]
 
+	def get_argc(self):
+		return len(self.__argv__)
+
 	def get_datapath(self, path=''):
 		return xbmc.translatePath('%s/%s' % (self.__datapath__, path))
 

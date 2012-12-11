@@ -91,7 +91,7 @@ def write_configuration(id, host, port, proto, cipher):
 	f.write('mute 20\n')
 	f.write('fast-io\n')
 	f.write('cipher %s\n' % cipher.lower())
-	f.write('tun-mtu 1500\n')
+	f.write('tun-mtu 1300\n')
 	f.write('redirect-gateway def1\n')
 	f.close()
 	return file
@@ -144,8 +144,17 @@ def sudo_prefix():
 			return '%ssudo -S ' % prefix
 	return prefix
 
+def display_location(geolocation):
+	if geolocation != None:
+		image = __settings__.get_path('%s%s%s' % ('resources/images/', geolocation.lookup.country_code.string.lower() , '.png'))
+		utils.notification(__addonname__, __settings__.get_string(4000) % (geolocation.lookup.ip.string, geolocation.lookup.country_name.string), image=image)
+
+def display_notification(id):
+	image = __settings__.get_path('icon.png')
+	utils.notification(__addonname__, __settings__.get_string(id), image=image)
+
 def start_openvpn(config):
-	utils.notification(__addonname__, __settings__.get_string(4001))
+	display_notification(4001)
 			
 	prefix = sudo_prefix()
 	cmdline = '%s\'%s\' --cd \'%s\' --config \'%s\' %s --daemon' % (prefix, __openvpn__, os.path.dirname(config['file']), os.path.basename(config['file']), __options__)
@@ -154,11 +163,10 @@ def start_openvpn(config):
 			
 	time.sleep(int(config['delay']))
 	geolocation = get_geolocation()
-	if geolocation != None:
-		utils.notification(__addonname__, __settings__.get_string(4000) % (geolocation.lookup.ip.string, geolocation.lookup.country_name.string))
-
+	display_location(geolocation)
+	
 def stop_openvpn():
-	utils.notification(__addonname__, __settings__.get_string(4002))
+	display_notification(4002)
 			
 	prefix = sudo_prefix()
 	cmdline = '%skillall -TERM %s' % (prefix, os.path.basename(__openvpn__))
@@ -167,14 +175,16 @@ def stop_openvpn():
 			
 	time.sleep(__defaultstopdelay__)
 	geolocation = get_geolocation()
-	if geolocation != None:
-		utils.notification(__addonname__, __settings__.get_string(4000) % (geolocation.lookup.ip.string, geolocation.lookup.country_name.string))
+	display_location(geolocation)
 
 if ( __name__ == '__main__' ):
 	vpns = get_vpns()
-	index = utils.select(__settings__.get_string(3000), vpns)
+	if __settings__.get_argc() == 1:
+		index = utils.select(__settings__.get_string(3000), vpns)
+	else:
+		index = int(__settings__.get_argv(1)) - 1
 	if index != -1:
-		if index == len(vpns) - 1:
+		if index >= len(vpns) - 1:
 			stop_openvpn()
 		else:
 			config = create_configuration(vpns, index)
@@ -184,4 +194,7 @@ if ( __name__ == '__main__' ):
 			else:
 				stop_openvpn()
 				start_openvpn(config)
+	else:
+		geolocation = get_geolocation()
+		display_location(geolocation)
 

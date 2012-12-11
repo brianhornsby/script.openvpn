@@ -27,7 +27,7 @@ def normalize_unicode(text):
 		return text
 	if not text or len(text) == 0:
 		return ''
-	return unicodedata.normalize('NFKD', text).encode('ascii','ignore')
+	return undedata.normalize('NFKD', text).encode('ascii','ignore')
 
 def check_value(value):
 	if value == None:
@@ -59,8 +59,8 @@ def keyboard(default='', heading='', hidden=False):
 		return kb.getText()
 	return None
 
-def notification(header, message):
-	command = 'Notification(%s, %s)' % (header, message)
+def notification(header, message, time=5000, image=''):
+	command = 'Notification(%s, %s, %s, %s)' % (header, message, time, image)
 	xbmc.executebuiltin(command)
 
 def ok(heading, line1, line2='', line3=''):
