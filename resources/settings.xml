@@ -11,7 +11,24 @@
 		<setting id="cert" type="file" label="2101" default="cert.crt"/>
 		<setting id="key" type="file" label="2102" default="key.key"/>
 		<setting id="ta" type="file" label="2103" default="ta.key"/>
-		<setting id="connections" type="file" label="2104" default="connections.xml"/>
+		<setting id="useconnections" type="bool" label="2111" default="true"/>
+		<setting id="connections" type="file" label="2104" default="" enable="!eq(-1,false)"/>
+	</category>
+	<category label="VPN 1">
+		<setting id="vpn1id" type="text" label="2105" default=""/>
+		<setting id="vpn1host" type="text" label="2106" default=""/>
+		<setting id="vpn1port" type="number" label="2107" default="1194"/>
+		<setting id="vpn1proto" type="enum" label="2108" default="0" lvalues="2202|2203"/>
+		<setting id="vpn1cipher" type="text" label="2109" default="BF-CBC"/>
+		<setting id="vpn1delay" type="number" label="2110" default="20"/>
+	</category>
+	<category label="VPN 2">
+		<setting id="vpn2id" type="text" label="2105" default=""/>
+		<setting id="vpn2host" type="text" label="2106" default=""/>
+		<setting id="vpn2port" type="number" label="2107" default="1194"/>
+		<setting id="vpn2proto" type="enum" label="2108" default="0" lvalues="2202|2203"/>
+		<setting id="vpn2cipher" type="text" label="2109" default="BF-CBC"/>
+		<setting id="vpn2delay" type="number" label="2110" default="20"/>
 	</category>
 	<category label="Advanced">
 		<setting id="defaultport" type="number" label="2200" default="1194"/>
