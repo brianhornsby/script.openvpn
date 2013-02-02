@@ -1,3 +1,6 @@
+*** 1.1.2 ***
+Display VPN identifier in notification when starting OpenVPN.
+
 *** 1.1.1 ***
 Only display settings VPN entries if vpn id is specified, otherwise ignore.
 Updated code to pep8 coding style.

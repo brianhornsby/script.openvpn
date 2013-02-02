@@ -9,8 +9,8 @@ See [wiki][3] for more information on using add-on.
 
 Prerequisites
 -----
-- Ubuntu 11.10 (Oneiric Ocelot) or Mac OS X (Mountain Lion)
-- XBMC 11.0 (Eden)
+- Ubuntu 12.04 (Precise Penguin) or Mac OS X (Mountain Lion)
+- XBMC 12.0 (Frodo)
 - OpenVPN 2.2.0 or greater
 
 Installation Instructions

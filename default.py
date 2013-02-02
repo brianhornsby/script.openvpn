@@ -207,13 +207,16 @@ def display_location(geolocation):
         utils.notification(_addonname, _settings.get_string(4000) % (geolocation.response.ipaddress.string, geolocation.response.countryname.string), image=image)
 
 
-def display_notification(id):
+def display_notification(id, subtext=False):
     image = _settings.get_path('icon.png')
-    utils.notification(_addonname, _settings.get_string(id), image=image)
+    text = _settings.get_string(id)
+    if subtext:
+        text = text + ': ' + subtext
+    utils.notification(_addonname, text, image=image)
 
 
-def start_openvpn(config):
-    display_notification(4001)
+def start_openvpn(config, id=False):
+    display_notification(4001, id)
 
     prefix = sudo_prefix()
     cmdline = '%s\'%s\' --cd \'%s\' --config \'%s\' %s --daemon' % (prefix, _openvpn, os.path.dirname(config['file']), os.path.basename(config['file']), _options)
@@ -257,7 +260,7 @@ if (__name__ == '__main__'):
                          config['file'], xbmc.LOGERROR)
             else:
                 stop_openvpn()
-                start_openvpn(config)
+                start_openvpn(config, vpns[index])
     else:
         geolocation = get_geolocation()
         display_location(geolocation)
