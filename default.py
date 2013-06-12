@@ -90,7 +90,8 @@ def read_connections():
                    'port': _settings['vpn1port'],
                    'proto': proto_enum_to_string(_settings['vpn1proto']),
                    'cipher': _settings['vpn1cipher'],
-                   'delay': _settings['vpn1delay']}
+                   'delay': _settings['vpn1delay'],
+                   'ovpn': _settings['vpn1ovpn']}
             connections.append(vpn)
         if _settings['vpn2id'] and len(_settings['vpn2id']) > 0:
             vpn = {'id': _settings['vpn2id'],
@@ -98,7 +99,8 @@ def read_connections():
                    'port': _settings['vpn2port'],
                    'proto': proto_enum_to_string(_settings['vpn2proto']),
                    'cipher': _settings['vpn2cipher'],
-                   'delay': _settings['vpn2delay']}
+                   'delay': _settings['vpn2delay'],
+                   'ovpn': _settings['vpn2ovpn']}
             connections.append(vpn)
     return connections
 
@@ -182,8 +184,11 @@ def create_configuration(vpns, index):
             proto = vpn.get('proto', _defaultproto)
             cipher = vpn.get('cipher', _defaultcipher)
             configuration['delay'] = int(vpn.get('delay', _defaultstartdelay))
-            configuration['file'] = write_configuration(
-                id, vpn['host'], port, proto, cipher)
+            if vpn.get('ovpn', False):
+                configuration['file'] = vpn.get('ovpn')
+            else:
+                configuration['file'] = write_configuration(
+                    id, vpn['host'], port, proto, cipher)
             log_debug(vpn)
     return configuration
 

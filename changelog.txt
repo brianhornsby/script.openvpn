@@ -1,3 +1,6 @@
+*** 1.2.0 ***
+Added ability to specify an ovpn file.
+
 *** 1.1.2 ***
 Display VPN identifier in notification when starting OpenVPN.
 

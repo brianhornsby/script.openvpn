@@ -4,7 +4,7 @@
 		<setting id="openvpn" type="file" label="2000" default="/usr/bin/openvpn"/>
 		<setting id="sudo" type="bool" label="2001" default="false"/>
 		<setting id="sudoprompt" type="bool" label="2002" default="true"/>
-		<setting id="sudopwd" type="text" option="hidden" label="2003" enable="!eq(-1,)" default=""/>
+		<setting id="sudopwd" type="text" option="hidden" label="2003" enable="!eq(-1,false)" default=""/>
 	</category>
 	<category label="Configuration">
 		<setting id="ca" type="file" label="2100" default="ca.crt"/>
@@ -21,6 +21,7 @@
 		<setting id="vpn1proto" type="enum" label="2108" default="0" lvalues="2202|2203"/>
 		<setting id="vpn1cipher" type="text" label="2109" default="BF-CBC"/>
 		<setting id="vpn1delay" type="number" label="2110" default="20"/>
+		<setting id="vpn1ovpn" type="file" label="2211" default=""/>
 	</category>
 	<category label="VPN 2">
 		<setting id="vpn2id" type="text" label="2105" default=""/>
@@ -29,6 +30,7 @@
 		<setting id="vpn2proto" type="enum" label="2108" default="0" lvalues="2202|2203"/>
 		<setting id="vpn2cipher" type="text" label="2109" default="BF-CBC"/>
 		<setting id="vpn2delay" type="number" label="2110" default="20"/>
+		<setting id="vpn2ovpn" type="file" label="2211" default=""/>
 	</category>
 	<category label="Advanced">
 		<setting id="defaultport" type="number" label="2200" default="1194"/>
