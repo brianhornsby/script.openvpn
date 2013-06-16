@@ -1,48 +1,42 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <strings>	
 	<!--Labels-->
-	<string id="1000">Kill OpenVPN Connection (Current: %s)</string>
+	<string id="1000"></string>
 	
 	<!--Settings-->
 	<string id="2000">OpenVPN</string>
-	<string id="2001">Sudo</string>
-	<string id="2002">Sudo Prompt</string>
-	<string id="2003">Sudo Password</string>
-	<string id="2100">Root Certificate</string>
-	<string id="2101">Certificate</string>
-	<string id="2102">Private Key</string>
-	<string id="2103">TLS Key</string>
-	<string id="2104">Connections</string>
-	<string id="2105">VPN Id</string>
-	<string id="2106">VPN Host</string>
-	<string id="2107">VPN Port</string>
-	<string id="2108">VPN Proto</string>
-	<string id="2109">VPN Cipher</string>
-	<string id="2110">VPN Check Delay</string>
-	<string id="2111">Use Connection File</string>
-	<string id="2200">Default Port</string>
-	<string id="2201">Default Proto</string>
-	<string id="2202">UDP</string>
-	<string id="2203">TCP</string>
-	<string id="2204">Default Cipher</string>
-	<string id="2205">Default Start VPN Check Delay</string>
-	<string id="2206">Default Stop VPN Check Delay</string>
-	<string id="2207">Extra Options</string>
-	<string id="2208">Debug</string>
-	<string id="2209">On</string>
-	<string id="2210">Off</string>
-	<string id="2211">OVPN File</string>
+	<string id="2001">Import OpenVPN Configuration File</string>
+	<string id="2002">Delete OpenVPN Configuration File</string>
+	<string id="2003">OpenVPN Settings</string>
+	<string id="2004">Management IP Address</string>
+	<string id="2005">Management Port</string>
+	<string id="2006">Additional Arguments</string>
+	<string id="2007">OpenVPN Configuration</string>
+	<string id="2010">Script</string>
+	<string id="2011">Use sudo when running OpenVPN</string>
+	<string id="2020">Advanced</string>
+	<string id="2021">Debug</string>
 	
 	<!--Dialogs-->
-	<string id="3000">Select OpenVPN Configuration</string>
-	<string id="3001">Configuration file does not exist.</string>
-	<string id="3002">Check xbmc.log for more information.</string>
-	<string id="3003">Enter sudo password.</string>
-	<string id="3004">Root certifcate, certificate and private key must be set.</string>
+	<string id="3000">Import OpenVPN configuration file</string>
+	<string id="3001">Enter a name for OpenVPN configuration</string>
+	<string id="3002">OpenVPN</string>
+	<string id="3003">An OpenVPN configuration already exists with that name. Overwrite?</string>
+	<string id="3004">Import cancelled.</string>
+	<string id="3005">Import failed. You must specify a name for the OpenVPN configuration.</string>
+	<string id="3006">Are you sure you want to delete this OpenVPN configuration?</string>
+	<string id="3007">Delete cancelled.</string>
+	<string id="3008">No OpenVPN configurations exist to delete.</string>
+	<string id="3009">An existing OpenVPN instance appears to be running.</string>
+	<string id="3010">Disconnect it?</string>
+	<string id="3011">An error has occurred whilst trying to connect OpenVPN</string>
+	<string id="3012">Enter your sudo password</string>
+	<string id="3013">Select OpenVPN configuration to run</string>
+	<string id="3014">Disconnect OpenVPN</string>
 	
 	<!--Notifcations-->
 	<string id="4000">IP: %s; Country: %s</string>
-	<string id="4001">Starting OpenVPN</string>
-	<string id="4002">Stopping OpenVPN</string>
+	<string id="4001">Stopped OpenVPN connection: %s</string>
+	<string id="4002">Started OpenVPN connection: %s</string>
 	
 </strings>

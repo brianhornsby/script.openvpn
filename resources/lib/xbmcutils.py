@@ -1,8 +1,8 @@
 #/*
 # *
-# * Utilities for XBMC addons.
+# * OpenVPN for XBMC.
 # *
-# * Copyright (C) 2012 Brian Hornsby
+# * Copyright (C) 2013 Brian Hornsby
 # *
 # * This program is free software: you can redistribute it and/or modify
 # * it under the terms of the GNU General Public License as published by
@@ -59,6 +59,15 @@ def get_int(tuple, key):
 
 def add_params(root, params):
     return '%s?%s' % (root, urllib.urlencode(params))
+
+
+def browse(type, heading, shares='files', mask='', enablemultiple=False):
+    dialog = xbmcgui.Dialog()
+    return dialog.browse(type, heading, shares, mask, enablemultiple)
+
+
+def browse_files(heading, shares='files', mask='', enablemultiple=False):
+    return browse(1, heading, shares, mask, enablemultiple)
 
 
 def keyboard(default='', heading='', hidden=False):

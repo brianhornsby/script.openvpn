@@ -1,3 +1,6 @@
+*** 2.0.0 ***
+Complete rewrite of code and the way the script works.
+
 *** 1.2.0 ***
 Added ability to specify an ovpn file.
 

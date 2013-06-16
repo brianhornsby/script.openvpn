@@ -1,8 +1,8 @@
 #/*
 # *
-# * Add-on Settings class for XBMC.
+# * OpenVPN for XBMC.
 # *
-# * Copyright (C) 2012 Brian Hornsby
+# * Copyright (C) 2013 Brian Hornsby
 # *
 # * This program is free software: you can redistribute it and/or modify
 # * it under the terms of the GNU General Public License as published by
