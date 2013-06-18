@@ -110,13 +110,14 @@ class OpenVPNError(Exception):
 
 class OpenVPN:
 
-    def __init__(self, openvpn, ovpnconfig, ip='127.0.0.1', port=1337, sudopwd=None, args=None, timeout=1, debug=False):
+    def __init__(self, openvpn, ovpnconfig, ip='127.0.0.1', port=1337, sudo=False, sudopwd=None, args=None, timeout=1, debug=False):
         self.openvpn = openvpn
         self.ovpnconfig = ovpnconfig
         self.ip = ip
         self.port = int(port)
         self.args = args
         self.timeout = timeout
+        self.sudo = sudo
         self.sudopwd = sudopwd
         self.debug = debug
 
@@ -184,9 +185,12 @@ class OpenVPN:
 
         self._log_debug('Command line: [%s]' % cmdline)
 
-        if self.sudopwd:
+        if self.sudo:
             self._log_debug('Using sudo')
-            cmdline = 'echo \'%s\' | sudo -S %s' % (self.sudopwd, cmdline)
+            if self.sudopwd:
+                cmdline = 'echo \'%s\' | sudo -S %s' % (self.sudopwd, cmdline)
+            else:
+                cmdline = 'sudo %s' % (cmdline)
 
         self.process = subprocess.Popen(cmdline, cwd=self.workdir, shell=True,
                                         stdout=subprocess.PIPE, stdin=subprocess.PIPE, stderr=subprocess.PIPE)

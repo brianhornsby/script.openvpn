@@ -131,7 +131,7 @@ def connect_openvpn(config, restart=False, sudopassword=None):
         sudopassword = utils.keyboard(
             heading=_settings.get_string(3012), hidden=True)
     openvpn = vpn.OpenVPN(_openvpn, _settings.get_datapath(
-        config), ip=_ip, port=_port, args=_args, sudopwd=sudopassword, debug=(_settings['debug'] == 'true'))
+        config), ip=_ip, port=_port, args=_args, sudo=_sudo, sudopwd=sudopassword, debug=(_settings['debug'] == 'true'))
     try:
         if restart:
             openvpn.disconnect()
