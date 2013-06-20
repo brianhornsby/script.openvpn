@@ -68,6 +68,10 @@ _ip = _settings['ip']
 _port = int(_settings['port'])
 _args = _settings['args']
 _sudo = (_settings['sudo'] == 'true')
+if _sudo:
+    _sudopwdrequired = (_settings['sudopwdrequired'] == 'true')
+else:
+    _sudopwdrequired = False
 
 log_debug('OpenVPN:    [%s]' % _openvpn)
 log_debug('Userdata:   [%s]' % _userdata)
@@ -75,6 +79,8 @@ log_debug('OpenVPN IP: [%s]' % _ip)
 log_debug('OpenVPN Port: [%d]' % _port)
 log_debug('Additional OpenVPN Arguments: [%s]' % _args)
 log_debug('Sudo: [%s]' % _sudo)
+if _sudo:
+    log_debug('Sudo Password Required: [%s]' % _sudopwdrequired)
 
 
 def get_geolocation():
@@ -127,7 +133,7 @@ def connect_openvpn(config, restart=False, sudopassword=None):
     log_debug('Connecting OpenVPN configuration: [%s]' % config)
     global _state
 
-    if _sudo and sudopassword is None:
+    if _sudo and _sudopwdrequired and sudopassword is None:
         sudopassword = utils.keyboard(
             heading=_settings.get_string(3012), hidden=True)
     openvpn = vpn.OpenVPN(_openvpn, _settings.get_datapath(

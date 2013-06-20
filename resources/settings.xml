@@ -12,6 +12,7 @@
 	</category>
 	<category label="2010">
 		<setting id="sudo" type="bool" label="2011" default="false"/>
+		<setting id="sudopwdrequired" type="bool" label="2012" default="true" enable="!eq(-1,false)"/>
 	</category>
 	<category label="2020">
 		<setting id="debug" type="bool" label="2021" default="true"/>
