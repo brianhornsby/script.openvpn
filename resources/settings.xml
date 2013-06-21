@@ -15,6 +15,6 @@
 		<setting id="sudopwdrequired" type="bool" label="2012" default="true" enable="!eq(-1,false)"/>
 	</category>
 	<category label="2020">
-		<setting id="debug" type="bool" label="2021" default="true"/>
+		<setting id="debug" type="bool" label="2021" default="false"/>
 	</category>
 </settings>
