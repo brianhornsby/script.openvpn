@@ -1,4 +1,4 @@
-OpenVPN Add-on for XBMC
+OpenVPN for XBMC
 ======================
 
 About
