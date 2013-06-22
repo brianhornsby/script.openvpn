@@ -1,58 +1,59 @@
 OpenVPN for XBMC
-======================
+==========
+A script that allows you to control OpenVPN from within XBMC.
 
-About
+Features
 -----
-This addon allows a user to run a [OpenVPN][1] configuration in XBMC. 
+- Start and stop OpenVPN from with XBMC.
+- Setup multiple VPN connections.
+- Display current geo-location.
 
-See [wiki][3] for more information on using add-on.
-
-Prerequisites
+Screenshots
 -----
-- Ubuntu 12.04 (Precise Penguin) or Mac OS X (Mountain Lion)
-- XBMC 12.0 (Frodo)
-- OpenVPN 2.2.0 or greater
+<img alt="Select OpenVPN configuration dialog" src="https://raw.github.com/brianhornsby/www_brianhornsby_com/master/img/openvpn_select_configuration.png" height="128"/>
+<img alt="Geo-location notifications" src="https://raw.github.com/brianhornsby/www_brianhornsby_com/master/img/openvpn_geolocation_notification.png" height="128"/>
 
-Installation Instructions
------
-1. Download the latest zip file for add-on from [Download][4] section.
+Installation
+------
+Download the latest zip file and install the addon. See [http://wiki.xbmc.org/?title=Add-ons#How_to_install_from_a_ZIP_file][1] for more details on installing addons from zip file.
 
-2. Install add-on into XBMC using 'install from zip file' option. The plugin will be installed in the programs add-ons section.
+Usage
+------
+The SimilarTracks script can be accessed from the Programs menu or called using the RunScript builtin function (RunScript(script.openvpn)). The script can be passed the following arguments; e.g. RunScript(script.openvpn, Los Angeles).
 
-3. You need to create a file called connections.xml in the addons userdata directory.
+**import**: Run the import configuration dialog.
 
-- Linux (Ubuntu): ~/.xbmc/userdata/addon_data/script.openvpn
-- Mac: ~/Library/Application Support/XBMC/userdata/addon_data/script.openvpn
+**delete**: Run the delete configuration dialog.
 
-This file will be used to store your openvpn connections.
-The contents of the file should look like below, but change attributes to match your connections.
-You need to add one vpn element for each vpn connection.
+**location**: Display the current geo-location. Uses IPInfoDB API.
 
-`<?xml version="1.0" encoding="utf-8" standalone="yes"?>`
+**disconnect**: Disconnect the current OpenVPN connection.
 
-`<vpns>`
+**<openvpn configuration>**: Run the specified OpenVPN configuration.
 
-`<vpn id="VPN1" host="tcp.vpnhost.net" port="80" proto="tcp"/>`
+Settings
+--------
+The following settings are available.
 
-`<vpn id="VPN2" host="udp.vpnhost.net" port="1194" proto="udp" delay="20"/>`
+**Import OpenVPN Configuration File**: Selecting this setting invokes the import configuration dialog.
 
-`</vpns>`
+**Delete OpenVPN Configuration File**: Selecting the option invokes the delete configuration dialog.
 
-- id: Set to the name you want to appear in the select dialog, e.g. 'US VPN' or 'UK VPN'. Mandatory.
-- host: The hostname for the openvpn connection. Mandatory.
-- port: The port that should be used for openvpn connection. Mandatory.
-- proto: tcp or udp. Mandatory.
-- delay: Number of seconds to wait before showing notification, after connection. Not Mandatory.
+**OpenVPN**: Set this to the OpenVPN binary. Default: /usr/bin/openvp
 
-Third-party Libraries
----------------------
-- BeautifulSoup
+**Management IP Address**: Use this option to change the IP address used by OpenVPN management interface. Default: 127.0.0.1
+
+**Management Port**: Use this option to change the port used by the OpenVPN management interface. Default: 1337
+
+**Additional Arguments**: Use this option to specify any extra command line arguments to be supplied to OpenVPN.
+
+**Use sudo when running OpenVPN**: Set this option to true if you require OpenVPN to be run using sudo. Default: false
+
+**Password is required**: Set to true if a password is required when using sudo. Default: true
 
 License
--------
-This software is released under the [GPL 3.0 license] [2].
+------
+OpenVPN for XBMC is licensed under the [GPL 3.0 license][2].
 
-[1]: http://openvpn.net
+[1]: http://wiki.xbmc.org/?title=Add-ons#How_to_install_from_a_ZIP_file
 [2]: http://www.gnu.org/licenses/gpl-3.0.html
-[3]: https://github.com/brianhornsby/openvpn-xbmc/wiki
-[4]: https://github.com/brianhornsby/openvpn-xbmc/downloads
