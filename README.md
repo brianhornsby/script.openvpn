@@ -29,7 +29,7 @@ The SimilarTracks script can be accessed from the Programs menu or called using 
 
 **disconnect**: Disconnect the current OpenVPN connection.
 
-**<openvpn configuration>**: Run the specified OpenVPN configuration.
+**\<openvpn configuration\>**: Run the specified OpenVPN configuration.
 
 Settings
 --------
