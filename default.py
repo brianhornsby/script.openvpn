@@ -85,7 +85,7 @@ if _sudo:
 
 def get_geolocation():
     try:
-        url = 'http://api.ipinfodb.com/v3/ip-city/?key=24e822dc48a930d92b04413d1d551ae86e09943a829f971c1c83b7727a16947f&format=XML'
+        url = 'http://api.ipinfodb.com/v3/ip-city/?key=24e822dc48a930d92b04413d1d551ae86e09943a829f971c1c83b7727a16947f&format=xml'
         req = urllib2.Request(url)
         f = urllib2.urlopen(req)
         result = f.read()
