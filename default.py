@@ -101,7 +101,7 @@ def display_location():
         image = _settings.get_path('%s%s%s' % (
             'resources/images/', geolocation.response.countrycode.string.lower(), '.png'))
         utils.notification(_addonname, _settings.get_string(4000) % (
-            geolocation.response.ipaddress.string, geolocation.response.countryname.string), image=image)
+            geolocation.response.ipaddress.string, geolocation.response.countryname.string.title()), image=image)
 
 
 def display_notification(text, subtext=False):
