@@ -1,3 +1,6 @@
+*** 2.0.1 ***
+Fixes for issues #8 and #9.
+
 *** 2.0.0 ***
 Complete rewrite of code and the way the script works.
 
