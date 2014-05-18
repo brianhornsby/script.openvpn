@@ -80,6 +80,15 @@ def is_running(ip, port):
                 output = cmdline.split('--config')
                 if len(output) > 1:
                     config = output[1].lstrip().split('--')[0].rstrip()
+                else:
+                    cmdline = 'ps | grep -w %d | grep -vw grep' % pid
+                    ps = subprocess.Popen(cmdline, shell=True, stdout=subprocess.PIPE)
+                    cmdline = ps.stdout.read()
+                    ps.stdout.close()
+                    output = cmdline.split('--config')
+                    if len(output) > 1:
+                        config = output[1].lstrip().split('--')[0].rstrip()
+
             data = interface.receive().split(',')
             if len(data) > 1:
                 state = data[1]
@@ -201,4 +210,3 @@ class OpenVPN:
                 2, 'Unable to connect to OpenVPN management interface')
 
         self._log_debug('Connect OpenVPN successful')
-        # self.interface.send('hold release\n')

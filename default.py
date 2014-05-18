@@ -75,9 +75,9 @@ else:
 
 log_debug('OpenVPN:    [%s]' % _openvpn)
 log_debug('Userdata:   [%s]' % _userdata)
-log_debug('OpenVPN IP: [%s]' % _ip)
-log_debug('OpenVPN Port: [%d]' % _port)
-log_debug('Additional OpenVPN Arguments: [%s]' % _args)
+log_debug('OpenVPN Management Interface IP: [%s]' % _ip)
+log_debug('OpenVPN Management Interface Port: [%d]' % _port)
+log_debug('OpenVPN Additional Arguments: [%s]' % _args)
 log_debug('Sudo: [%s]' % _sudo)
 if _sudo:
     log_debug('Sudo Password Required: [%s]' % _sudopwdrequired)
