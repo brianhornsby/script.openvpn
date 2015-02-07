@@ -1,8 +1,8 @@
 #/*
 # *
-# * OpenVPN for XBMC.
+# * OpenVPN for Kodi.
 # *
-# * Copyright (C) 2013 Brian Hornsby
+# * Copyright (C) 2015 Brian Hornsby
 # *
 # * This program is free software: you can redistribute it and/or modify
 # * it under the terms of the GNU General Public License as published by
@@ -23,7 +23,7 @@ import xbmcaddon
 import xbmc
 
 
-class XBMCSettings:
+class KodiSettings:
     def __init__(self, addonid, argv):
         self.__addon__ = xbmcaddon.Addon(id=addonid)
         self.__argv__ = argv
