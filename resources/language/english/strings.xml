@@ -34,6 +34,8 @@
 	<string id="3012">Enter your sudo password</string>
 	<string id="3013">Select OpenVPN configuration to run</string>
 	<string id="3014">Disconnect OpenVPN</string>
+	<string id="3015">Set path for OpenVPN binary</string>
+	<string id="3016">OpenVPN binary does not exist</string>
 	
 	<!--Notifcations-->
 	<string id="4000">IP: %s; Country: %s</string>

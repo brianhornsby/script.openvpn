@@ -226,37 +226,50 @@ def import_ovpn():
 
 
 if (__name__ == '__main__'):
-    if _settings.get_argc() != 1:
-        if _settings.get_argv(1) == 'import':
-            import_ovpn()
-        elif _settings.get_argv(1) == 'delete':
-            delete_ovpn()
-        elif _settings.get_argv(1) == 'location':
-            display_location()
-        elif _settings.get_argv(1) == 'disconnect':
-            disconnect_openvpn()
-        else:
-            found = False
-            ovpnpath = None
-            for path in os.listdir(_userdata):
-                if os.path.splitext(path)[1] == '.ovpn' and os.path.splitext(path)[0] == _settings.get_argv(1):
-                    ovpnpath = path
-                    found = True
-                    break
-            if found:
-                connect_openvpn(ovpnpath)
-            else:
-                log_error(
-                    'Unknown OpenVPN configuration: [%s]' % _settings.get_argv(1))
-    else:
-        if not os.path.exists(_userdata):
-            log_debug('Creating directory: [%s]' % _userdata)
-            os.mkdir(_userdata)
+    if not os.path.exists(_openvpn) or not os.path.isfile(_openvpn):
+        log_debug('OpenVPN binary does not exist')
+        path = utils.browse_files(_settings.get_string(3015))
+        if path and os.path.exists(path) and os.path.isfile(path):
+            _settings['openvpn'] = path
+            _openvpn = _settings['openvpn']
+            log_debug('OpenVPN: [%s]' % _openvpn)
 
-        ovpn = select_ovpn()
-        if ovpn is None:
-            import_ovpn()
-        elif len(ovpn) > 0 and ovpn == _settings.get_string(3014) and _state == connected:
-            disconnect_openvpn()
-        elif len(ovpn) > 0:
-            connect_openvpn(ovpn)
+    if not os.path.exists(_openvpn) or not os.path.isfile(_openvpn):
+        log_debug('OpenVPN binary still does not exist')
+        utils.ok(_settings.get_string(
+            3002), _settings.get_string(3016), _openvpn)
+    else:
+        if _settings.get_argc() != 1:
+            if _settings.get_argv(1) == 'import':
+                import_ovpn()
+            elif _settings.get_argv(1) == 'delete':
+                delete_ovpn()
+            elif _settings.get_argv(1) == 'location':
+                display_location()
+            elif _settings.get_argv(1) == 'disconnect':
+                disconnect_openvpn()
+            else:
+                found = False
+                ovpnpath = None
+                for path in os.listdir(_userdata):
+                    if os.path.splitext(path)[1] == '.ovpn' and os.path.splitext(path)[0] == _settings.get_argv(1):
+                        ovpnpath = path
+                        found = True
+                        break
+                if found:
+                    connect_openvpn(ovpnpath)
+                else:
+                    log_error(
+                        'Unknown OpenVPN configuration: [%s]' % _settings.get_argv(1))
+        else:
+            if not os.path.exists(_userdata):
+                log_debug('Creating directory: [%s]' % _userdata)
+                os.mkdir(_userdata)
+
+            ovpn = select_ovpn()
+            if ovpn is None:
+                import_ovpn()
+            elif len(ovpn) > 0 and ovpn == _settings.get_string(3014) and _state == connected:
+                disconnect_openvpn()
+            elif len(ovpn) > 0:
+                connect_openvpn(ovpn)

@@ -40,6 +40,12 @@ class KodiSettings:
         else:
             return value
 
+    def __setitem__(self, key, value):
+        if value.isdigit():
+            self.__addon__.setSetting(key, int(value))
+        else:
+            self.__addon__.setSetting(key, value)
+
     def get_string(self, id):
         return self.__addon__.getLocalizedString(id)
 
