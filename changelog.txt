@@ -1,3 +1,6 @@
+*** 3.0.0 ***
+Updated plugin to use Kodi name. Updated copyright date. [1a88f6f]
+
 *** 2.1.0 ***
 Updated xbmc.python version. Fixed issue with reading running OpenVPN configuration on OpenELEC. [0e132c6]
 Changed country flag images to https://github.com/koppi/iso-country-flags-svg-collection. [3dc6b7e]
