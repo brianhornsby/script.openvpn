@@ -1,3 +1,4 @@
 resources/*.pyc
 resources/lib/*.pyc
 *.pyc
+*.pyo
