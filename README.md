@@ -1,10 +1,10 @@
-OpenVPN for XBMC
+OpenVPN for Kodi
 ==========
-A script that allows you to control OpenVPN from within XBMC.
+A script that allows you to control OpenVPN from within Kodi.
 
 Features
 -----
-- Start and stop OpenVPN from with XBMC.
+- Start and stop OpenVPN from with Kodi.
 - Setup multiple VPN connections.
 - Display current geo-location.
 
@@ -15,7 +15,7 @@ Screenshots
 
 Installation
 ------
-Download the latest zip file and install the addon. See [http://wiki.xbmc.org/?title=Add-ons#How_to_install_from_a_ZIP_file][1] for more details on installing addons from zip file.
+Download the latest zip file and install the addon. See [http://kodi.wiki/view/HOW-TO:Install_an_Add-on_from_a_zip_file][1] for more details on installing addons from zip file.
 
 Usage
 ------
@@ -51,9 +51,17 @@ The following settings are available.
 
 **Password is required**: Set to true if a password is required when using sudo. Default: true
 
+FAQ
+---
+
+**Is this plugin available in a Kodi addons repository?** No
+
+**I can't get the OpenVPN plugin to work on Raspberry Pi?** Before asking me for help I suggest reading the following [guide][3].
+
 License
 ------
-OpenVPN for XBMC is licensed under the [GPL 3.0 license][2].
+OpenVPN for Kodi is licensed under the [GPL 3.0 license][2].
 
-[1]: http://wiki.xbmc.org/?title=Add-ons#How_to_install_from_a_ZIP_file
+[1]: http://kodi.wiki/view/HOW-TO:Install_an_Add-on_from_a_zip_file
 [2]: http://www.gnu.org/licenses/gpl-3.0.html
+[3]: http://forums.tvaddons.ag/threads/24769-How-to-set-up-your-VPN-on-raspberry-pi-using-Brain-Hornsby-Openvpn-for-XBMC

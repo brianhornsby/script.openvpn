@@ -1,8 +1,8 @@
 #/*
 # *
-# * OpenVPN for XBMC.
+# * OpenVPN for Kodi.
 # *
-# * Copyright (C) 2013 Brian Hornsby
+# * Copyright (C) 2015 Brian Hornsby
 # *
 # * This program is free software: you can redistribute it and/or modify
 # * it under the terms of the GNU General Public License as published by
@@ -30,15 +30,14 @@ import xbmc
 from BeautifulSoup import BeautifulSoup
 
 import resources.lib.openvpn as vpn
-import resources.lib.xbmcsettings as settings
-import resources.lib.xbmcutils as utils
+import resources.lib.kodisettings as settings
+import resources.lib.kodiutils as utils
 
 # Set some global values.
-_xbmcrevision = xbmc.getInfoLabel('System.BuildVersion')
 _addonid = 'script.openvpn'
 
 # Initialise settings.
-_settings = settings.XBMCSettings(_addonid, sys.argv)
+_settings = settings.KodiSettings(_addonid, sys.argv)
 
 # Get addon information.
 _addonname = _settings.get_name()

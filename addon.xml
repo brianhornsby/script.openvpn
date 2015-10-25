@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="script.openvpn" name="OpenVPN" version="2.1.0" provider-name="brianhornsby">
+<addon id="script.openvpn" name="OpenVPN" version="3.0.0" provider-name="brianhornsby">
 	<requires>
 		<import addon="xbmc.python" version="2.1.0"/>
 		<import addon="script.module.beautifulsoup" version="3.0.8"/>
@@ -7,8 +7,11 @@
 	<extension point="xbmc.python.script" library="default.py"/>
 	<extension point="xbmc.addon.metadata">
 		<platform>all</platform>
-		<summary lang="en">OpenVPN addon for XBMC.</summary>
-		<description lang="en">This addon allows you to set up a number of OpenVPN configurations, which you can then run from XBMC.
-For more information on setting up this addon see http://brianhornsby.com/xbmc_plugins/openvpn</description>
+		<summary lang="en">OpenVPN addon for Kodi.</summary>
+		<description lang="en">This addon allows you to set up a number of OpenVPN configurations, which you can then run from Kodi.
+For more information on setting up this addon see http://brianhornsby.com/kodi_plugins/openvpn</description>
+		<license>GNU GENERAL PUBLIC LICENSE. Version 3, 29 June 2007</license>
+		<website>http://brianhornsby.com/kodi_addons/openvpn</website>
+		<source>https://github.com/brianhornsby/script.openvpn</source>
   </extension>
 </addon>
