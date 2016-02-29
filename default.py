@@ -69,8 +69,10 @@ _args = _settings['args']
 _sudo = (_settings['sudo'] == 'true')
 if _sudo:
     _sudopwdrequired = (_settings['sudopwdrequired'] == 'true')
+    _sudopwd = _settings['sudopwd']
 else:
     _sudopwdrequired = False
+    _sudopwd = ''
 
 log_debug('OpenVPN:    [%s]' % _openvpn)
 log_debug('Userdata:   [%s]' % _userdata)
@@ -133,8 +135,12 @@ def connect_openvpn(config, restart=False, sudopassword=None):
     global _state
 
     if _sudo and _sudopwdrequired and sudopassword is None:
-        sudopassword = utils.keyboard(
+        if not _sudopwd:
+            sudopassword = utils.keyboard(
             heading=_settings.get_string(3012), hidden=True)
+        else:
+            sudopassword = _sudopwd
+
     openvpn = vpn.OpenVPN(_openvpn, _settings.get_datapath(
         config), ip=_ip, port=_port, args=_args, sudo=_sudo, sudopwd=sudopassword, debug=(_settings['debug'] == 'true'))
     try:
@@ -184,7 +190,12 @@ def select_ovpn():
             if response[1] is not None and response[2] is not None and config == os.path.splitext(os.path.basename(response[1]))[0]:
                 config = '%s - %s' % (config, response[2])
             configs.append(config)
-        idx = utils.select(_settings.get_string(3013), configs)
+
+        if len(configs) == 1:
+            idx = 0
+        else:
+            idx = utils.select(_settings.get_string(3013), configs)
+
         if idx >= 0:
             log_debug('Select: [%s]' % ovpnfiles[idx])
             return ovpnfiles[idx]

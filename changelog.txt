@@ -1,3 +1,7 @@
+*** 3.1.0 ***
+Added ability to save your sudo pasword.
+If only single config exists, run it without prompting.
+
 *** 3.0.0 ***
 Updated plugin to use Kodi name. Updated copyright date. [1a88f6f]
 
