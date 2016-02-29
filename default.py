@@ -69,8 +69,10 @@ _args = _settings['args']
 _sudo = (_settings['sudo'] == 'true')
 if _sudo:
     _sudopwdrequired = (_settings['sudopwdrequired'] == 'true')
+    _sudopwd = _settings['sudopwd']
 else:
     _sudopwdrequired = False
+    _sudopwd = ''
 
 log_debug('OpenVPN:    [%s]' % _openvpn)
 log_debug('Userdata:   [%s]' % _userdata)
@@ -133,8 +135,12 @@ def connect_openvpn(config, restart=False, sudopassword=None):
     global _state
 
     if _sudo and _sudopwdrequired and sudopassword is None:
-        sudopassword = utils.keyboard(
+        if not _sudopwd:
+            sudopassword = utils.keyboard(
             heading=_settings.get_string(3012), hidden=True)
+        else:
+            sudopassword = _sudopwd
+
     openvpn = vpn.OpenVPN(_openvpn, _settings.get_datapath(
         config), ip=_ip, port=_port, args=_args, sudo=_sudo, sudopwd=sudopassword, debug=(_settings['debug'] == 'true'))
     try:

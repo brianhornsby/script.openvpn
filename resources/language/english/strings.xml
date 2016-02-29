@@ -15,6 +15,7 @@
 	<string id="2010">Script</string>
 	<string id="2011">Use sudo when running OpenVPN</string>
 	<string id="2012">Password is required</string>
+	<string id="2013">Sudo password</string>
 	<string id="2020">Advanced</string>
 	<string id="2021">Debug</string>
 	
