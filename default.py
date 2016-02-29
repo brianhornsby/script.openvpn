@@ -190,7 +190,12 @@ def select_ovpn():
             if response[1] is not None and response[2] is not None and config == os.path.splitext(os.path.basename(response[1]))[0]:
                 config = '%s - %s' % (config, response[2])
             configs.append(config)
-        idx = utils.select(_settings.get_string(3013), configs)
+
+        if len(configs) == 1:
+            idx = 0
+        else:
+            idx = utils.select(_settings.get_string(3013), configs)
+
         if idx >= 0:
             log_debug('Select: [%s]' % ovpnfiles[idx])
             return ovpnfiles[idx]
