@@ -19,7 +19,7 @@ Download the latest zip file and install the addon. See [http://kodi.wiki/view/H
 
 Usage
 ------
-The SimilarTracks script can be accessed from the Programs menu or called using the RunScript builtin function (RunScript(script.openvpn)). The script can be passed the following arguments; e.g. RunScript(script.openvpn, Los Angeles).
+The OpenVPN script can be accessed from the Programs menu or called using the RunScript builtin function (RunScript(script.openvpn)). The script can be passed the following arguments; e.g. RunScript(script.openvpn, Los Angeles).
 
 **import**: Run the import configuration dialog.
 
