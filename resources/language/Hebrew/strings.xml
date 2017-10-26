@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<strings>	
+	<!--Labels-->
+	<string id="1000"></string>
+	
+	<!--Settings-->
+	<string id="2000">OpenVPN</string>
+	<string id="2001">יבא קובץ הגדרות של OpenVPN</string>
+	<string id="2002">מחק קובץ הגדרות של OpenVPN</string>
+	<string id="2003">הגדרות OpenVPN</string>
+	<string id="2004">ניהול כתובת IP</string>
+	<string id="2005">ניהול פורט</string>
+	<string id="2006">מישתנים נוספים</string>
+	<string id="2007">הגדרות OpenVPN</string>
+	<string id="2010">סקריפט</string>
+	<string id="2011">תשתמש ב- sudo כאשר אתה מפעיל את OpenVPN</string>
+	<string id="2012">נדרשת סיסמה</string>
+	<string id="2020">מתקדם</string>
+	<string id="2021">איתור באגים</string>
+	
+	<!--Dialogs-->
+	<string id="3000">ייבוא קובץ הגדרות של OpenVPN</string>
+	<string id="3001">הכנס שם עבור הגדרות OpenVPN</string>
+	<string id="3002">OpenVPN</string>
+	<string id="3003">קובץ הגדרות של  OpenVPN עם השם הזה כבר קיים. למחוק ולכתוב עליו?</string>
+	<string id="3004">הייבוא בוטל.</string>
+	<string id="3005">הייבוא נכשל, אתה חייב להכניס שם עבור הגדרות OpenVPN.</string>
+	<string id="3006">האם אתה בטוח שברצונך למחוק את הגדרות OpenVPN?</string>
+	<string id="3007">המחיקה בוטלה.</string>
+	<string id="3008">לא נמצאו הגדרות OpenVPN למחיקה.</string>
+	<string id="3009">השירות של OpenVPN פועל.</string>
+	<string id="3010">לנתק את השירות?</string>
+	<string id="3011">ארעה שגיאה בהתחברות אל OpenVPN</string>
+	<string id="3012">הכנס את סיסמת sudo שלך</string>
+	<string id="3013">בחר הגדרות OpenVPN לשימוש בהפעלה</string>
+	<string id="3014">תתנתק מ-OpenVPN</string>
+	
+	<!--Notifcations-->
+	<string id="4000">כתובת IP: %s; מדינה: %s</string>
+	<string id="4001">חיבור OpenVPN מנותק: %s</string>
+	<string id="4002">חיבור OpenVPN פעיל: %s</string>
+	
+</strings>
