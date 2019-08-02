@@ -73,7 +73,7 @@ def is_running(ip, port):
             data = interface.receive()
             if data.startswith('SUCCESS: pid='):
                 pid = int(data.split('=')[1])
-                cmdline = 'ps -fp %d' % pid
+                cmdline = 'ps -fwwp %d' % pid
                 ps = subprocess.Popen(cmdline, shell=True, stdout=subprocess.PIPE)
                 cmdline = ps.stdout.read()
                 ps.stdout.close()
