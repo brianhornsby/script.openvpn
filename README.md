@@ -1,3 +1,6 @@
+This repository has been set to archived (read-only) as I no longer use Kodi, so development of this plugin has stopped.
+==========
+
 OpenVPN for Kodi
 ==========
 A script that allows you to control OpenVPN from within Kodi.
